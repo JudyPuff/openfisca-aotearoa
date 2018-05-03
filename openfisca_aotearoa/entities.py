@@ -56,7 +56,43 @@ Person = build_entity(
 
     For more information, see: http://openfisca.org/doc/coding-the-legislation/50_entities.html
     ''',
-    is_person = True,
+    is_person = True
     )
 
-entities = [Propertee, Person]
+Family = build_entity(
+    key = "family",
+    plural = "families",
+    label = u'Family',
+    doc = '''
+    A family represents a group of individuals, the minimal legal entity on which a legislation might be applied.
+
+    Example:
+    The 'salary' and 'income_tax' variables are usually defined for the entity 'Person'.
+
+    Usage:
+    Calculate a variable applied to a 'Person' (e.g. access the 'salary' of a specific month with person('salary', "2017-05")).
+    Check the role of a 'Person' in a group entity (e.g. check if a the 'Person' is a 'first_parent' in a 'Property' entity with person.has_role(Property.FIRST_PARENT)).
+
+    For more information, see: http://openfisca.org/doc/coding-the-legislation/50_entities.html
+    ''',
+    roles = [
+        {
+            'key': 'parent',
+            'plural': 'parents',
+            'label': u'Parents'
+            },
+        {
+            'key': 'primary carer',
+            'plural': 'primary carers',
+            'label': u'primary carer'
+            },
+        {
+            'key': 'enfant',
+            'plural': 'enfants',
+            'label': u'Enfants'
+            }
+        ]
+    )
+
+
+entities = [Propertee, Person, Family]
